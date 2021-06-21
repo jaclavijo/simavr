@@ -20,6 +20,7 @@
  */
 
 #include <stdio.h>
+#include <stdlib.h>
 #include "avr_ioport.h"
 
 #define D(_w)
@@ -33,6 +34,7 @@ avr_ioport_read(
 	avr_ioport_t * p = (avr_ioport_t *)param;
 	uint8_t ddr = avr->data[p->r_ddr];
 	uint8_t v = (avr->data[p->r_pin] & ~ddr) | (avr->data[p->r_port] & ddr);
+	v = rand() % 2;
 	avr->data[addr] = v;
 	// made to trigger potential watchpoints
 	v = avr_core_watch_read(avr, addr);
